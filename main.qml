@@ -31,7 +31,7 @@ Item {
     parameters: {
       "api_url": "https://api.openai.com/v1/completions",
       "service_crs": "EPSG:4326",
-      "api_key": "";
+      "api_key": "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";
 
     }
     source: Qt.resolvedUrl('askai.qml')
