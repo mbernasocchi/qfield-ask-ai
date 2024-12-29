@@ -12,27 +12,29 @@ Item {
   property var mapCanvas: iface.mapCanvas()
 
   Component.onCompleted: {
-    nominatimLocatorFilter.locatorBridge.registerQFieldLocatorFilter(nominatimLocatorFilter);
+    askaiLocatorFilter.locatorBridge.registerQFieldLocatorFilter(askaiLocatorFilter);
   }
 
   Component.onDestruction: {
-    nominatimLocatorFilter.locatorBridge.deregisterQFieldLocatorFilter(nominatimLocatorFilter);
+    askaiLocatorFilter.locatorBridge.deregisterQFieldLocatorFilter(askaiLocatorFilter);
   }
 
   QFieldLocatorFilter {
-    id: nominatimLocatorFilter
+    id: askaiLocatorFilter
 
     delay: 1000
-    name: "nominatim"
-    displayName: "OpenStreetMap Nominatim"
-    prefix: "osm"
+    name: "askai"
+    displayName: "Ask AI"
+    prefix: "ai"
     locatorBridge: iface.findItemByObjectName('locatorBridge')
 
     parameters: {
-      "service_url": "https://nominatim.openstreetmap.org/search.php",
-      "service_crs": "EPSG:4326"
+      "api_url": "https://api.openai.com/v1/completions",
+      "service_crs": "EPSG:4326",
+      "api_key": "";
+
     }
-    source: Qt.resolvedUrl('nominatim.qml')
+    source: Qt.resolvedUrl('askai.qml')
   
     function triggerResult(result) {
       let geometry = result.userData.geometry
