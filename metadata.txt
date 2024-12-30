@@ -1,5 +1,5 @@
 [general]
-name=OpenStreetMap Nominatim Search
+name=Ask AI
 description=Plugin to enable AI prompt in the search bar using the AI prefix
 author=marco@OPENGIS.ch
 icon=icon.svg
