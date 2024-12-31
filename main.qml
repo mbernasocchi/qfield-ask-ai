@@ -114,10 +114,8 @@ Item {
 
         ColumnLayout {
             spacing: 10
-            Layout.fillWidth: true
             Label {
                 id: labelApiUrl
-                wrapMode: Text.WrapText
                 text: qsTr("API URL")
             }
 
@@ -128,7 +126,6 @@ Item {
             }
             Label {
                 id: labelApiKey
-                wrapMode: Text.WrapText
                 text: qsTr("API key")
             }
 
@@ -141,9 +138,9 @@ Item {
         }
 
         onAccepted: {
+            settings.api_key = textFieldApiKey.text;
+            settings.api_url = textFieldApiUrl.text;
             mainWindow.displayToast(qsTr("Settings stored"));
-            pluginName = comboBoxPlugins.currentText
-            pluginUuid = comboBoxPlugins.currentValue
         }
     }
 }
