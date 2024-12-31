@@ -114,17 +114,7 @@ Item {
 
         ColumnLayout {
             spacing: 10
-            Label {
-                id: labelApiUrl
-                Layout.fillWidth: true
-                text: qsTr("API URL")
-            }
-
-            QfTextField {
-                id: textFieldApiUrl
-                Layout.fillWidth: true
-                text: settings.api_url
-            }
+            
             Label {
                 id: labelApiKey
                 Layout.fillWidth: true
@@ -136,7 +126,17 @@ Item {
                 Layout.fillWidth: true
                 text: settings.api_key
             }
-            
+            Label {
+                id: labelApiUrl
+                Layout.fillWidth: true
+                text: qsTr("API URL")
+            }
+
+            QfTextField {
+                id: textFieldApiUrl
+                Layout.fillWidth: true
+                text: settings.api_url
+            }            
         }
 
         onAccepted: {
