@@ -108,23 +108,13 @@ Item {
         standardButtons: Dialog.Ok | Dialog.Cancel
         title: qsTr("AI settings")
 
+        width: mainWindow.width * 0.8
         x: (mainWindow.width - width) / 2
         y: (mainWindow.height - height) / 2
 
         ColumnLayout {
             spacing: 10
-
-            Label {
-                id: labelApiKey
-                wrapMode: Text.WrapText
-                text: qsTr("API key")
-            }
-
-            QfTextField {
-                id: textFieldApiKey
-                Layout.fillWidth: true
-                text: settings.api_key
-            }
+            Layout.fillWidth: true
             Label {
                 id: labelApiUrl
                 wrapMode: Text.WrapText
@@ -136,6 +126,18 @@ Item {
                 Layout.fillWidth: true
                 text: settings.api_url
             }
+            Label {
+                id: labelApiKey
+                wrapMode: Text.WrapText
+                text: qsTr("API key")
+            }
+
+            QfTextField {
+                id: textFieldApiKey
+                Layout.fillWidth: true
+                text: settings.api_key
+            }
+            
         }
 
         onAccepted: {
