@@ -14,8 +14,8 @@ Item {
 
   Settings {
     id: settings
-    property string api_url: "https://api.openai.com/v1/chat/completions"
-    property string api_model: "gpt-3.5-turbo"
+    property string api_url: "https://api.anthropic.com/v1/messages" //"https://api.openai.com/v1/chat/completions"
+    property string api_model: "claude-3-5-sonnet-20241022" //"gpt-3.5-turbo"
     property string api_key
   }
 
