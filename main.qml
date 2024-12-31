@@ -1,12 +1,22 @@
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Layouts
+
+import QtCore
 
 import org.qfield
 import org.qgis
 import Theme
 
+
 Item {
   id: plugin
+  
+  Settings {
+    id: settings
+    property string api_url: "https://api.openai.com/v1/chat/completions"
+    property string api_key: "KEYYYYY"
+  }
 
   property var mainWindow: iface.mainWindow()
   property var positionSource: iface.findItemByObjectName('positionSource')
@@ -25,13 +35,16 @@ Item {
     onClicked: {
       fetchAnswer()
     }
+    onPressAndHold: {
+            optionDialog.open()
+        }
   }
 
   function fetchAnswer() {
     let parameters = {
-      "api_url": "https://api.openai.com/v1/chat/completions",
+      "api_url": settings.api_url,
       "service_crs": "EPSG:4326",
-      "api_key": ""
+      "api_key": settings.api_key
     }
 
     let position = positionSource.positionInformation
@@ -86,4 +99,49 @@ Item {
     request.setRequestHeader("Content-Type", "application/json");
     request.send(JSON.stringify(requestData));
   }
+    Dialog {
+        id: optionDialog
+        parent: mainWindow.contentItem
+        visible: false
+        modal: true
+        font: Theme.defaultFont
+        standardButtons: Dialog.Ok | Dialog.Cancel
+        title: qsTr("AI settings")
+
+        x: (mainWindow.width - width) / 2
+        y: (mainWindow.height - height) / 2
+
+        ColumnLayout {
+            spacing: 10
+
+            Label {
+                id: labelApiKey
+                wrapMode: Text.WrapText
+                text: qsTr("API key")
+            }
+
+            QfTextField {
+                id: textFieldApiKey
+                Layout.fillWidth: true
+                text: settings.api_key
+            }
+            Label {
+                id: labelApiUrl
+                wrapMode: Text.WrapText
+                text: qsTr("API URL")
+            }
+
+            QfTextField {
+                id: textFieldApiUrl
+                Layout.fillWidth: true
+                text: settings.api_url
+            }
+        }
+
+        onAccepted: {
+            mainWindow.displayToast(qsTr("Settings stored"));
+            pluginName = comboBoxPlugins.currentText
+            pluginUuid = comboBoxPlugins.currentValue
+        }
+    }
 }
