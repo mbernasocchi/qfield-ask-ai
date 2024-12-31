@@ -16,7 +16,6 @@ Item {
     request.onreadystatechange = function() {
       if (request.readyState === XMLHttpRequest.DONE) {
         // Parse response JSON
-        console.log(request.response)
         let json = JSON.parse(request.response)
         let features = FeatureUtils.featuresFromJsonString(json["choices"][0]["message"]["content"])
         for (let feature of features) {
@@ -36,7 +35,7 @@ Item {
 
     let prompt = string;
     let requestData = {
-      model: "gpt-4o",
+      model: "gpt-3.5-turbo",
       messages: [
         {
           role: "developer",
