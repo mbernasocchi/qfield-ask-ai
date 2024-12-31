@@ -119,10 +119,10 @@ Item {
         text: qsTr("API URL")
       }
 
-      QfTextField {
+      QfComboBox {
         id: textFieldApiUrl
         Layout.fillWidth: true
-        text: settings.api_url
+        model: ["https://api.anthropic.com/v1/messages", "https://api.openai.com/v1/chat/completions"]
       }
       Label {
         id: labelApiModel
@@ -149,7 +149,7 @@ Item {
     }
 
     onAccepted: {
-      settings.api_url = textFieldApiUrl.text;
+      settings.api_url = textFieldApiUrl.currentText;
       settings.api_model = textFieldApiModel.text;
       settings.api_key = textFieldApiKey.text;
       mainWindow.displayToast(qsTr("Settings stored"));
