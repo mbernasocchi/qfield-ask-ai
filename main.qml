@@ -35,11 +35,17 @@ Item {
     }
 
     let position = positionSource.positionInformation
+    if (positionSource.active && position.latitudeValid && position.longitudeValid) {
+      mainWindow.displayToast(qsTr('Your current position is ' + position.latitude + ', ' +position.longitude))
+    } else {
+      mainWindow.displayToast(qsTr('Your current position is unknown'))
+    }
 
     console.log('Fetching results....');
 
-    //let prompt = `List interesting tourist attractions near latitude ${position.latitude} and longitude ${position.longitude}.`;
-    let prompt = `List interesting tourist attractions near rio de janeiro.`;
+    let prompt = `List interesting tourist attractions near latitude ${position.latitude} and longitude ${position.longitude}.`;
+    console.log(prompt);  
+    //let prompt = `List interesting tourist attractions near rio de janeiro.`;
     let requestData = {
     model: "gpt-3.5-turbo",
     messages: [
@@ -49,7 +55,7 @@ Item {
         },
     ],
     response_format: {
-        // See /docs/guides/structured-outputs
+        // could also use /docs/guides/structured-outputs
         type: "json_object",
         }
     }
@@ -66,7 +72,7 @@ Item {
         if (response.choices && response.choices.length > 0) {
           let content = JSON.stringify(response.choices[0]['message']['content'])
           mainWindow.displayToast(content)
-          console.log(content)
+          //console.log(content)
         
         } else {
           mainWindow.displayToast("No response from API")
@@ -78,11 +84,5 @@ Item {
     request.setRequestHeader("Authorization", `Bearer ${parameters["api_key"]}`);
     request.setRequestHeader("Content-Type", "application/json");
     request.send(JSON.stringify(requestData));
-
-    if (positionSource.active && position.latitudeValid && position.longitudeValid) {
-      mainWindow.displayToast(qsTr('Your current position is ' + position.latitude + ', ' +position.longitude))
-    } else {
-      mainWindow.displayToast(qsTr('Your current position is unknown'))
-    }
   }
 }
