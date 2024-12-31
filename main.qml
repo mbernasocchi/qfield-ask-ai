@@ -123,7 +123,9 @@ Item {
         id: textFieldApiUrl
         Layout.fillWidth: true
         model: ["https://api.anthropic.com/v1/messages", "https://api.openai.com/v1/chat/completions"]
-      }
+        currentIndex: settings.api_url === "https://api.anthropic.com/v1/messages" ? 0 : 1
+        }
+      
       Label {
         id: labelApiModel
         text: qsTr("API model")
@@ -132,8 +134,9 @@ Item {
       QfTextField {
         id: textFieldApiModel
         Layout.fillWidth: true
-        text: settings.api_model
+        text: textFieldApiUrl.currentIndex === 0 ? "claude-3-5-sonnet-20241022" : "gpt-3.5-turbo"
       }
+
       Label {
         id: labelApiKey
         Layout.fillWidth: true
