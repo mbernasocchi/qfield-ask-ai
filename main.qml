@@ -15,7 +15,7 @@ Item {
   Settings {
     id: settings
     property string api_url: "https://api.openai.com/v1/chat/completions"
-    property string api_key: "KEYYYYY"
+    property string api_key
   }
 
   property var mainWindow: iface.mainWindow()
@@ -116,6 +116,7 @@ Item {
             spacing: 10
             Label {
                 id: labelApiUrl
+                Layout.fillWidth: true
                 text: qsTr("API URL")
             }
 
@@ -126,6 +127,7 @@ Item {
             }
             Label {
                 id: labelApiKey
+                Layout.fillWidth: true
                 text: qsTr("API key")
             }
 
