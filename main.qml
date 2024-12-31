@@ -15,6 +15,7 @@ Item {
   Settings {
     id: settings
     property string api_url: "https://api.openai.com/v1/chat/completions"
+    property string api_model: "gpt-3.5-turbo"
     property string api_key
   }
 
@@ -40,6 +41,7 @@ Item {
 
     parameters: {
       "api_url": settings.api_url,
+      "api_model": settings.api_model,
       "api_key": settings.api_key,
       "service_crs": "EPSG:4326",
     }
@@ -111,7 +113,27 @@ Item {
     ColumnLayout {
       width: parent.width
       spacing: 10
+      
+      Label {
+        id: labelApiUrl
+        text: qsTr("API URL")
+      }
 
+      QfTextField {
+        id: textFieldApiUrl
+        Layout.fillWidth: true
+        text: settings.api_url
+      }
+      Label {
+        id: labelApiModel
+        text: qsTr("API model")
+      }
+
+      QfTextField {
+        id: textFieldApiModel
+        Layout.fillWidth: true
+        text: settings.api_model
+      }
       Label {
         id: labelApiKey
         Layout.fillWidth: true
@@ -123,21 +145,13 @@ Item {
         Layout.fillWidth: true
         text: settings.api_key
       }
-      Label {
-        id: labelApiUrl
-        text: qsTr("API URL")
-      }
-
-      QfTextField {
-        id: textFieldApiUrl
-        Layout.fillWidth: true
-        text: settings.api_url
-      }
+      
     }
 
     onAccepted: {
-      settings.api_key = textFieldApiKey.text;
       settings.api_url = textFieldApiUrl.text;
+      settings.api_model = textFieldApiModel.text;
+      settings.api_key = textFieldApiKey.text;
       mainWindow.displayToast(qsTr("Settings stored"));
     }
   }
