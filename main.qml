@@ -11,7 +11,7 @@ import Theme
 
 Item {
   id: plugin
-  
+
   Settings {
     id: settings
     property string api_url: "https://api.openai.com/v1/chat/completions"
@@ -74,7 +74,7 @@ Item {
     iconColor: Theme.mainColor
     bgcolor: Theme.darkGray
     round: true
-    
+
     onClicked: {
       let position = positionSource.positionInformation
       if (positionSource.active && position.latitudeValid && position.longitudeValid) {
@@ -106,11 +106,15 @@ Item {
     x: (mainWindow.width - width) / 2
     y: (mainWindow.height - height) / 2
 
+    width: mainWindow.width * 0.8
+
     ColumnLayout {
+      width: parent.width
       spacing: 10
 
       Label {
         id: labelApiKey
+        Layout.fillWidth: true
         text: qsTr("API key")
       }
 
