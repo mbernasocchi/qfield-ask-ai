@@ -38,9 +38,10 @@ Item {
     if (positionSource.active && position.latitudeValid && position.longitudeValid) {
       mainWindow.displayToast(qsTr('Your current position is ' + position.latitude + ', ' +position.longitude))
     } else {
-      mainWindow.displayToast(qsTr('Your current position is unknown'))
+      mainWindow.displayToast(qsTr('Your current position is unknown\n Not loading POIs nearby'))
+      return;
     }
-
+    
     console.log('Fetching results....');
 
     let prompt = `List interesting tourist attractions near latitude ${position.latitude} and longitude ${position.longitude}.`;
