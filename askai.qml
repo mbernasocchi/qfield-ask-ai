@@ -10,7 +10,7 @@ Item {
     if (parameters["api_url"] === undefined || string === "") {
       fetchResultsEnded();
     }
-    console.log('Fetching results....');
+    console.log('Fetching results.... from ' + parameters["api_url"]);
 
     const isAnthropic = parameters["api_url"].startsWith("https://api.anthropic.com/");
 
@@ -65,6 +65,8 @@ Item {
         }
       };
     }
+
+    console.log('Request data: ' + JSON.stringify(requestData));
 
     request.open("POST", parameters["api_url"], true);
     if (isAnthropic) {
