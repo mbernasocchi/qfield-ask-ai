@@ -40,7 +40,7 @@ Item {
 
     if (isAnthropic) {
       requestData = {
-        model: "claude-3-5-sonnet-20241022",
+        model: parameters["api_model"],
         max_tokens: 4096,
         messages: [{
             role: "user",
@@ -50,7 +50,7 @@ Item {
       };
     } else {
       requestData = {
-        model: "gpt-3.5-turbo",
+        model: parameters["api_model"],
         messages: [
           {
             role: "developer",
