@@ -11,6 +11,7 @@ Item {
       fetchResultsEnded();
     }
     console.log('Fetching results.... from ' + parameters["api_url"]);
+    //console.log('Context: ' + JSON.stringify(context));
 
     const isAnthropic = parameters["api_url"].startsWith("https://api.anthropic.com/");
 
@@ -34,7 +35,25 @@ Item {
         fetchResultsEnded()
       }
     }
+    
+    
+    let position = parameters["positionSource"].positionInformation
+    //console.log('Position: ' + JSON.stringify(context));
+    //if (string.includes("@map")) {
+    //    string = string.replace("@map", `latitude ${position.latitude} and longitude ${position.longitude}`);
+    //  }
 
+    if (parameters["positionSource"].active && position.latitudeValid && position.longitudeValid) {
+      if (string.includes("@me")) {
+        string = string.replace("@me", `latitude ${position.latitude} and longitude ${position.longitude}`);
+      }
+    } else {
+      // TODO comunicate that @me works only if location is on
+      //mainWindow.displayToast(qsTr('Your current position is unknown\n you cannot us @me'))
+      fetchResultsEnded()
+    }
+
+    console.log('Prompt: ' + string);
     let prompt = string;
     let requestData = {}
 

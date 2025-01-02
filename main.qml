@@ -43,7 +43,7 @@ Item {
       "api_url": settings.api_url,
       "api_model": settings.api_model,
       "api_key": settings.api_key,
-      "service_crs": "EPSG:4326",
+      "positionSource": positionSource
     }
     source: Qt.resolvedUrl('askai.qml')
 
