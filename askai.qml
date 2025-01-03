@@ -38,19 +38,25 @@ Item {
     
     
     let position = parameters["positionSource"].positionInformation
-    //console.log('Position: ' + JSON.stringify(context));
-    //if (string.includes("@map")) {
-    //    string = string.replace("@map", `latitude ${position.latitude} and longitude ${position.longitude}`);
-    //  }
+    console.log('Position: ' + JSON.stringify(context));
 
-    if (parameters["positionSource"].active && position.latitudeValid && position.longitudeValid) {
-      if (string.includes("@me")) {
+    if (string.includes("@me")) {
+      if (parameters["positionSource"].active && position.latitudeValid && position.longitudeValid) {
         string = string.replace("@me", `latitude ${position.latitude} and longitude ${position.longitude}`);
       }
-    } else {
-      // TODO comunicate that @me works only if location is on
-      //mainWindow.displayToast(qsTr('Your current position is unknown\n you cannot us @me'))
-      fetchResultsEnded()
+       else {
+        let details = {
+          "userData": null,
+          "displayString": "Enable location services to use @me",
+          "description": "The @me placeholder feature requires your position to work correctly.",
+          "score": 1,
+          "groupScore":1,
+          "actions":[]
+        }
+      prepareResult(details);
+      fetchResultsEnded();
+      return
+     }
     }
 
     console.log('Prompt: ' + string);
