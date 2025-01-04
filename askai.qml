@@ -11,7 +11,6 @@ Item {
       fetchResultsEnded();
     }
     console.log('Fetching results.... from ' + parameters["api_url"]);
-    //console.log('Context: ' + JSON.stringify(context));
 
     const isAnthropic = parameters["api_url"].startsWith("https://api.anthropic.com/");
 
@@ -38,7 +37,6 @@ Item {
     
     
     let position = parameters["positionSource"].positionInformation
-    console.log('Position: ' + JSON.stringify(context));
 
     if (string.includes("@me")) {
       if (parameters["positionSource"].active && position.latitudeValid && position.longitudeValid) {
@@ -59,7 +57,20 @@ Item {
      }
     }
 
-    console.log('Prompt: ' + string);
+    let mapExtent = GeometryUtils.reprojectRectangle(context.targetExtent, context.targetExtentCrs, CoordinateReferenceSystemUtils.wgs84Crs())
+    let centerPoint = GeometryUtils.point(context.targetExtent.center.x, context.targetExtent.center.y)
+    let mapCenter = GeometryUtils.reprojectPointToWgs84(centerPoint, context.targetExtentCrs)
+    
+    if (string.includes("@mapcenter")) {
+      string = string.replace("@mapcenter", `latitude ${mapCenter.y} and longitude ${mapCenter.x}`);
+    }
+
+    if (string.includes("@mapextent")) {
+      // TODO better handling of extent in the prompt
+      let extent = `extent ${mapExtent}`;
+      string = string.replace("@mapextent", extent);
+    }
+
     let prompt = string;
     let requestData = {}
 
