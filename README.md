@@ -20,18 +20,22 @@ QField's Ask AI Plugin supports context variables that will be replaced before t
 ### @me
 Search: `aai what historical site is near @me?`
 
-Prompt: `what historical site is near latitude 46.94816666666667 and longitude 7.455333333333334?`
+Prompt: `Generate a GeoJSON object for the following request: what historical site is near latitude 46.94816666666667 and longitude 7.455333333333334?. The response should be valid GeoJSON format only, with no additional text.`
 
 ### @mapcenter
 Search: `aai what castles are near @mapcenter?`
 
-Prompt: `what castles are near latitude 40.67971032370505 and longitude 14.766729803798855?`
+Prompt: `Generate a GeoJSON object for the following request: what castles are near latitude 40.67971032370505 and longitude 14.766729803798855?. The response should be valid GeoJSON format only, with no additional text.`
 
 ### @mapextent
 Search: `aai what churches are within @mapextent?`
 
-Prompt: `what churches are within extent 12.4372929651450814,41.8861018043505027 : 12.4861885994769057,41.9166361227203055?`
+Prompt: `Generate a GeoJSON object for the following request: what churches are within extent 12.4372929651450814,41.8861018043505027 : 12.4861885994769057,41.9166361227203055?. The response should be valid GeoJSON format only, with no additional text.`
 
 
 ## credits
 icon by icons8.com
+
+
+Generate a GeoJSON object for the following request: ${prompt}.
+The response should be valid GeoJSON format only, with no additional text.`

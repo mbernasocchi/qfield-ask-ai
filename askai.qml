@@ -74,28 +74,22 @@ Item {
     let prompt = string;
     let requestData = {}
 
+    let messages = [{
+        role: "user",
+        content: `Generate a GeoJSON object for the following request: ${prompt}.
+                  The response should be valid GeoJSON format only, with no additional text.`
+    }]
+
     if (isAnthropic) {
       requestData = {
         model: parameters["api_model"],
         max_tokens: 4096,
-        messages: [{
-            role: "user",
-            content: `Generate a GeoJSON object for the following request: ${prompt}.
-                     The response should be valid GeoJSON format only, with no additional text.`
-        }]
+        messages: messages,
       };
     } else {
       requestData = {
         model: parameters["api_model"],
-        messages: [
-          {
-            role: "developer",
-            content: "You should always return valid geojson only" },
-          {
-            role: "user",
-            content: prompt,
-          },
-        ],
+        messages: messages,
         response_format: {
           type: "json_object",
         }
