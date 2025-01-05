@@ -3,6 +3,10 @@
 This [QField](https://qfield.org) plugin integrates AI searches within QField's search bar. 
 The plugin relies on new functionalities within the plugin framework introduced in QField 3.5.
 
+
+https://github.com/user-attachments/assets/bb6df2cc-50aa-4d10-9642-122c51bcd7a6
+
+
 ## Installation
 
 To install the plugin, [download the plugin from the releases page](../../releases/latest/download/qfield-ask-ai.zip)
