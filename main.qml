@@ -87,9 +87,13 @@ Item {
       }
 
       // TODO: Find a way to paste content into the search bar directly.
-      let prompt = `aai List interesting tourist attractions near @me.`;
+      let poi_types = ["restaurants", "museums", "parks", "historical sites", "shopping centers"]
+      let poi_type = poi_types[Math.floor(Math.random() * poi_types.length)]
+      let poi_relations = ["near @me", "around @mapcenter", "within @mapextent"]
+      let poi_relation = poi_relations[Math.floor(Math.random() * poi_relations.length)]
+      let prompt = `aai List interesting ${poi_type} ${poi_relation}.`;
       platformUtilities.copyTextToClipboard(prompt);
-      mainWindow.displayToast(qsTr("Prompt copied to clipboard, paste it into the search bar!"))
+      mainWindow.displayToast(qsTr("Random prompt copied to clipboard, paste it into the search bar!"))
     }
     onPressAndHold: {
       optionDialog.open()
