@@ -87,7 +87,7 @@ Item {
       }
 
       // TODO: Find a way to paste content into the search bar directly.
-      let prompt = `aai List interesting tourist attractions near latitude ${position.latitude} and longitude ${position.longitude}.`;
+      let prompt = `aai List interesting tourist attractions near @me.`;
       platformUtilities.copyTextToClipboard(prompt);
       mainWindow.displayToast(qsTr("Prompt copied to clipboard, paste it into the search bar!"))
     }
