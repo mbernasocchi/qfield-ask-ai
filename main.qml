@@ -22,7 +22,6 @@ Item {
   property var mainWindow: iface.mainWindow()
   property var mapCanvas: iface.mapCanvas()
   property var positionSource: iface.findItemByObjectName('positionSource')
-  property var locatorItem: iface.findItemByObjectName('locatorItem')
 
   Component.onCompleted: {
     iface.addItemToPluginsToolbar(pluginButton)
@@ -43,7 +42,7 @@ Item {
       "api_url": settings.api_url,
       "api_model": settings.api_model,
       "api_key": settings.api_key,
-      "positionSource": positionSource
+      "position_information": positionSource.active ? positionSource.positionInformation : undefined
     }
     source: Qt.resolvedUrl('askai.qml')
 
@@ -78,7 +77,7 @@ Item {
     round: true
 
     onClicked: {
-      let position = positionSource.positionInformation
+      const position = positionSource.positionInformation
       if (positionSource.active && position.latitudeValid && position.longitudeValid) {
         mainWindow.displayToast(qsTr('Your current position is ' + position.latitude + ', ' +position.longitude))
       } else {
@@ -87,13 +86,12 @@ Item {
       }
 
       // TODO: Find a way to paste content into the search bar directly.
-      let poi_types = ["restaurants", "museums", "parks", "historical sites", "shopping centers"]
-      let poi_type = poi_types[Math.floor(Math.random() * poi_types.length)]
-      let poi_relations = ["near @me", "around @mapcenter", "within @mapextent"]
-      let poi_relation = poi_relations[Math.floor(Math.random() * poi_relations.length)]
-      let prompt = `aai List interesting ${poi_type} ${poi_relation}.`;
-      platformUtilities.copyTextToClipboard(prompt);
-      mainWindow.displayToast(qsTr("Random prompt copied to clipboard, paste it into the search bar!"))
+      const poi_types = ["restaurants", "museums", "parks", "historical sites", "shopping centers"]
+      const poi_type = poi_types[Math.floor(Math.random() * poi_types.length)]
+      const poi_relations = ["near @me", "around @mapcenter", "within @mapextent"]
+      const poi_relation = poi_relations[Math.floor(Math.random() * poi_relations.length)]
+      const prompt = `aai List interesting ${poi_type} ${poi_relation}.`;
+      askaiLocatorFilter.locatorBridge.requestSearch(prompt)
     }
     onPressAndHold: {
       optionDialog.open()
@@ -128,7 +126,11 @@ Item {
         Layout.fillWidth: true
         model: ["https://api.anthropic.com/v1/messages", "https://api.openai.com/v1/chat/completions"]
         currentIndex: settings.api_url === "https://api.anthropic.com/v1/messages" ? 0 : 1
+
+        onCurrentIndexChanged: {
+          textFieldApiModel.text = currentIndex === 0 ? "claude-3-5-sonnet-20241022" : "gpt-3.5-turbo"
         }
+      }
       
       Label {
         id: labelApiModel
@@ -138,7 +140,7 @@ Item {
       QfTextField {
         id: textFieldApiModel
         Layout.fillWidth: true
-        text: textFieldApiUrl.currentIndex === 0 ? "claude-3-5-sonnet-20241022" : "gpt-3.5-turbo"
+        text: settings.api_model
       }
 
       Label {
