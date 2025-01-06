@@ -3,5 +3,5 @@ name=Ask AI
 description=Plugin to enable AI prompt in the search bar using the AI prefix
 author=OPENGIS.ch
 icon=icon.svg
-version=0.4
+version=0.5
 homepage=https://www.opengis.ch/
