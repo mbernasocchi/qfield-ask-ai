@@ -58,8 +58,7 @@ Item {
     }
 
     let mapExtent = GeometryUtils.reprojectRectangle(context.targetExtent, context.targetExtentCrs, CoordinateReferenceSystemUtils.wgs84Crs())
-    let centerPoint = GeometryUtils.point(context.targetExtent.center.x, context.targetExtent.center.y)
-    let mapCenter = GeometryUtils.reprojectPointToWgs84(centerPoint, context.targetExtentCrs)
+    let mapCenter = GeometryUtils.point(mapExtent.center.x, mapExtent.center.y)
     
     if (string.includes("@mapcenter")) {
       string = string.replace("@mapcenter", `latitude ${mapCenter.y} and longitude ${mapCenter.x}`);
