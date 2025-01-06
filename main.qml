@@ -22,7 +22,6 @@ Item {
   property var mainWindow: iface.mainWindow()
   property var mapCanvas: iface.mapCanvas()
   property var positionSource: iface.findItemByObjectName('positionSource')
-  property var locatorItem: iface.findItemByObjectName('locatorItem')
 
   Component.onCompleted: {
     iface.addItemToPluginsToolbar(pluginButton)
