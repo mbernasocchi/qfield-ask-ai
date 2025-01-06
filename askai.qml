@@ -36,10 +36,10 @@ Item {
     }
     
     
-    let position = parameters["positionSource"].positionInformation
+    let position = parameters["position_information"]
 
     if (string.includes("@me")) {
-      if (parameters["positionSource"].active && position.latitudeValid && position.longitudeValid) {
+      if (position && position.latitudeValid && position.longitudeValid) {
         string = string.replace("@me", `latitude ${position.latitude} and longitude ${position.longitude}`);
       }
        else {

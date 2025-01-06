@@ -43,7 +43,7 @@ Item {
       "api_url": settings.api_url,
       "api_model": settings.api_model,
       "api_key": settings.api_key,
-      "positionSource": positionSource
+      "position_information": positionSource.active ? positionSource.positionInformation : undefined
     }
     source: Qt.resolvedUrl('askai.qml')
 
