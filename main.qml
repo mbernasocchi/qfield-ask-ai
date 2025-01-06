@@ -78,7 +78,7 @@ Item {
     round: true
 
     onClicked: {
-      let position = positionSource.positionInformation
+      const position = positionSource.positionInformation
       if (positionSource.active && position.latitudeValid && position.longitudeValid) {
         mainWindow.displayToast(qsTr('Your current position is ' + position.latitude + ', ' +position.longitude))
       } else {
@@ -87,13 +87,12 @@ Item {
       }
 
       // TODO: Find a way to paste content into the search bar directly.
-      let poi_types = ["restaurants", "museums", "parks", "historical sites", "shopping centers"]
-      let poi_type = poi_types[Math.floor(Math.random() * poi_types.length)]
-      let poi_relations = ["near @me", "around @mapcenter", "within @mapextent"]
-      let poi_relation = poi_relations[Math.floor(Math.random() * poi_relations.length)]
-      let prompt = `aai List interesting ${poi_type} ${poi_relation}.`;
-      platformUtilities.copyTextToClipboard(prompt);
-      mainWindow.displayToast(qsTr("Random prompt copied to clipboard, paste it into the search bar!"))
+      const poi_types = ["restaurants", "museums", "parks", "historical sites", "shopping centers"]
+      const poi_type = poi_types[Math.floor(Math.random() * poi_types.length)]
+      const poi_relations = ["near @me", "around @mapcenter", "within @mapextent"]
+      const poi_relation = poi_relations[Math.floor(Math.random() * poi_relations.length)]
+      const prompt = `aai List interesting ${poi_type} ${poi_relation}.`;
+      askaiLocatorFilter.locatorBridge.requestSearch(prompt)
     }
     onPressAndHold: {
       optionDialog.open()

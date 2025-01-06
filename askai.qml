@@ -36,7 +36,7 @@ Item {
     }
     
     
-    let position = parameters["position_information"]
+    const position = parameters["position_information"]
 
     if (string.includes("@me")) {
       if (position && position.latitudeValid && position.longitudeValid) {
@@ -57,8 +57,8 @@ Item {
      }
     }
 
-    let mapExtent = GeometryUtils.reprojectRectangle(context.targetExtent, context.targetExtentCrs, CoordinateReferenceSystemUtils.wgs84Crs())
-    let mapCenter = GeometryUtils.point(mapExtent.center.x, mapExtent.center.y)
+    const mapExtent = GeometryUtils.reprojectRectangle(context.targetExtent, context.targetExtentCrs, CoordinateReferenceSystemUtils.wgs84Crs())
+    const mapCenter = GeometryUtils.point(mapExtent.center.x, mapExtent.center.y)
     
     if (string.includes("@mapcenter")) {
       string = string.replace("@mapcenter", `latitude ${mapCenter.y} and longitude ${mapCenter.x}`);
