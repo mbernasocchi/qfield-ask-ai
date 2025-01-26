@@ -111,25 +111,18 @@ Item {
     height: mainWindow.height * 0.6
     width: mainWindow.width * 0.8
 
-    RowLayout {
+    ColumnLayout {
       width: parent.width
       height: parent.height
       spacing: 10
 
-      TextArea {
-        id: textAreaPrompt
+      RowLayout {
         Layout.fillWidth: true
-        Layout.fillHeight: true
-        text: settings.last_prompt
-      }
-      ColumnLayout {
-        width: parent.width
-        height: parent.height
-        spacing: 10
         Label {
           text: qsTr("Context variables")
         }
         Flow{
+          spacing: 5
           QfButton {
             text: qsTr("@me")
             onClicked: textAreaPrompt.insert(textAreaPrompt.cursorPosition , "@me")
@@ -143,10 +136,15 @@ Item {
             onClicked: textAreaPrompt.insert(textAreaPrompt.cursorPosition , " @mapextent")
           }
         }
+      }
+      RowLayout {
+        Layout.fillWidth: true
         Label {
           text: qsTr("Prompts")
         }
         Flow{
+          spacing: 5
+
         QfButton {
           text: qsTr("Generate random")
           onClicked: {
@@ -167,6 +165,13 @@ Item {
           }
         }
         }
+      }
+
+      TextArea {
+        id: textAreaPrompt
+        Layout.fillWidth: true
+        Layout.fillHeight: true
+        text: settings.last_prompt
       }
     }
 
