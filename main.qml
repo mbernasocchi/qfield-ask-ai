@@ -115,7 +115,7 @@ Item {
       width: parent.width
       height: parent.height
       spacing: 10
-      
+
       TextArea {
         id: textAreaPrompt
         Layout.fillWidth: true
@@ -132,25 +132,15 @@ Item {
         Flow{
           QfButton {
             text: qsTr("@me")
-            onClicked: {
-              textAreaPrompt.text += " @me"
-              textAreaPrompt.cursorPosition = textAreaPrompt.text.length
-              textAreaPrompt.text.insert(textAreaPrompt.cursorPosition , "@me")
-              }
+            onClicked: textAreaPrompt.insert(textAreaPrompt.cursorPosition , "@me")
           }
           QfButton {
             text: qsTr("@mapcenter")
-            onClicked: {
-              textAreaPrompt.text += " @mapcenter"
-              textAreaPrompt.cursorPosition = textAreaPrompt.text.length
-          }
+            onClicked: textAreaPrompt.insert(textAreaPrompt.cursorPosition , " @mapcenter")
           }
           QfButton {
             text: qsTr("@mapextent")
-            onClicked: {
-              textAreaPrompt.text += " @mapextent"
-              textAreaPrompt.cursorPosition = textAreaPrompt.text.length
-            }
+            onClicked: textAreaPrompt.insert(textAreaPrompt.cursorPosition , " @mapextent")
           }
         }
         Label {
