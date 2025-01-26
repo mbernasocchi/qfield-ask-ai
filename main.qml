@@ -87,19 +87,12 @@ Item {
       if (positionSource.active && position.latitudeValid && position.longitudeValid) {
         mainWindow.displayToast(qsTr('Your current position is ' + position.latitude + ', ' +position.longitude))
       } else {
-        mainWindow.displayToast(qsTr('Your current position is unknown\n Not loading POIs nearby'))
-        return;
+        mainWindow.displayToast(qsTr('Your current position is unknown\nContext variables will only work partially'))
       }
-
-      const poi_types = ["restaurants", "museums", "parks", "historical sites", "shopping centers"]
-      const poi_type = poi_types[Math.floor(Math.random() * poi_types.length)]
-      const poi_relations = ["near @me", "around @mapcenter", "within @mapextent"]
-      const poi_relation = poi_relations[Math.floor(Math.random() * poi_relations.length)]
-      const prompt = `aai List interesting ${poi_type} ${poi_relation}.`;
-      askaiLocatorFilter.locatorBridge.requestSearch(prompt)
+      promptDialog.open()
     }
     onPressAndHold: {
-      promptDialog.open()
+      optionDialog.open()
     }
   }
 
@@ -154,6 +147,28 @@ Item {
           text: qsTr("@mapextent")
           onClicked: {
             textAreaPrompt.text += " @mapextent"
+            textAreaPrompt.cursorPosition = textAreaPrompt.text.length
+          }
+        }
+        Label {
+          text: qsTr("Prompts")
+        }
+        QfButton {
+          text: qsTr("Generate random")
+          onClicked: {
+            const poi_types = ["restaurants", "museums", "parks", "historical sites", "shopping centers"]
+            const poi_type = poi_types[Math.floor(Math.random() * poi_types.length)]
+            const poi_relations = ["near @me", "around @mapcenter", "within @mapextent"]
+            const poi_relation = poi_relations[Math.floor(Math.random() * poi_relations.length)]
+            const prompt = `List interesting ${poi_type} ${poi_relation}.`;
+            textAreaPrompt.text = prompt
+            textAreaPrompt.cursorPosition = textAreaPrompt.text.length
+          }
+        }
+        QfButton {
+          text: qsTr("Reload last")
+          onClicked: {
+            textAreaPrompt.text = settings.last_prompt
             textAreaPrompt.cursorPosition = textAreaPrompt.text.length
           }
         }
