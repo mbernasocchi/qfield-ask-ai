@@ -126,6 +126,7 @@ Dialog {
         text: qsTr("Context variables")
       }
       Flow {
+        Layout.fillWidth: true
         spacing: 5
         QfButton {
           text: qsTr("@me")
@@ -147,6 +148,7 @@ Dialog {
         text: qsTr("Prompts")
       }
       Flow {
+        Layout.fillWidth: true
         spacing: 5
 
         QfButton {
