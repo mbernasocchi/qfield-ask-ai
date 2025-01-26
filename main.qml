@@ -17,7 +17,13 @@ Item {
     property string api_url: "https://api.anthropic.com/v1/messages" //"https://api.openai.com/v1/chat/completions"
     property string api_model: "claude-3-5-sonnet-20241022" //"gpt-3.5-turbo"
     property string api_key
+    property string last_prompt
   }
+
+  function configure() {
+    optionDialog.open();
+  }
+
 
   property var mainWindow: iface.mainWindow()
   property var mapCanvas: iface.mapCanvas()
@@ -85,7 +91,6 @@ Item {
         return;
       }
 
-      // TODO: Find a way to paste content into the search bar directly.
       const poi_types = ["restaurants", "museums", "parks", "historical sites", "shopping centers"]
       const poi_type = poi_types[Math.floor(Math.random() * poi_types.length)]
       const poi_relations = ["near @me", "around @mapcenter", "within @mapextent"]
@@ -94,7 +99,66 @@ Item {
       askaiLocatorFilter.locatorBridge.requestSearch(prompt)
     }
     onPressAndHold: {
-      optionDialog.open()
+      promptDialog.open()
+    }
+  }
+
+  Dialog {
+    id: promptDialog
+    parent: mainWindow.contentItem
+    visible: false
+    modal: true
+    font: Theme.defaultFont
+    standardButtons: Dialog.Ok | Dialog.Cancel
+    title: qsTr("AI prompt")
+
+    x: (mainWindow.width - width) / 2
+    y: (mainWindow.height - height) / 2
+
+    height: mainWindow.height * 0.6
+    width: mainWindow.width * 0.8
+
+    RowLayout {
+      width: parent.width
+      height: parent.height
+      spacing: 10
+      
+      TextArea {
+        id: textAreaPrompt
+        Layout.fillWidth: true
+        Layout.fillHeight: true
+        text: settings.last_prompt
+      }
+      ColumnLayout {
+        width: parent.width
+        height: parent.height
+        spacing: 10
+        Label {
+          text: qsTr("Context variables")
+        }
+        QfButton {
+          text: qsTr("@me")
+          onClicked: textAreaPrompt.text += " @me"
+        }
+        QfButton {
+          text: qsTr("@mapcenter")
+          onClicked: textAreaPrompt.text += " @mapcenter"
+        }
+        QfButton {
+          text: qsTr("@mapextent")
+          onClicked: textAreaPrompt.text += " @mapextent"
+        }
+      }
+    }
+
+    onAccepted: {
+      settings.last_prompt = textAreaPrompt.text;
+      askaiLocatorFilter.locatorBridge.requestSearch("AAI " + textAreaPrompt.text)
+    }
+
+    Component.onCompleted: {
+      textAreaPrompt.focus = true
+      promptDialog.standardButton(Dialog.Ok).text = qsTr("Ask AI!")
     }
   }
 
