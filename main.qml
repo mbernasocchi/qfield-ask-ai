@@ -103,7 +103,7 @@ Item {
     modal: true
     font: Theme.defaultFont
     standardButtons: Dialog.Ok | Dialog.Cancel
-    title: qsTr("AI prompt")
+    title: qsTr("AI prompt builder")
 
     x: (mainWindow.width - width) / 2
     y: (mainWindow.height - height) / 2
@@ -129,30 +129,34 @@ Item {
         Label {
           text: qsTr("Context variables")
         }
-        QfButton {
-          text: qsTr("@me")
-          onClicked: {
-            textAreaPrompt.text += " @me"
-            textAreaPrompt.cursorPosition = textAreaPrompt.text.length
+        Flow{
+          QfButton {
+            text: qsTr("@me")
+            onClicked: {
+              textAreaPrompt.text += " @me"
+              textAreaPrompt.cursorPosition = textAreaPrompt.text.length
+              textAreaPrompt.text.insert(textAreaPrompt.cursorPosition , "@me")
+              }
+          }
+          QfButton {
+            text: qsTr("@mapcenter")
+            onClicked: {
+              textAreaPrompt.text += " @mapcenter"
+              textAreaPrompt.cursorPosition = textAreaPrompt.text.length
+          }
+          }
+          QfButton {
+            text: qsTr("@mapextent")
+            onClicked: {
+              textAreaPrompt.text += " @mapextent"
+              textAreaPrompt.cursorPosition = textAreaPrompt.text.length
             }
-        }
-        QfButton {
-          text: qsTr("@mapcenter")
-          onClicked: {
-            textAreaPrompt.text += " @mapcenter"
-            textAreaPrompt.cursorPosition = textAreaPrompt.text.length
-        }
-        }
-        QfButton {
-          text: qsTr("@mapextent")
-          onClicked: {
-            textAreaPrompt.text += " @mapextent"
-            textAreaPrompt.cursorPosition = textAreaPrompt.text.length
           }
         }
         Label {
           text: qsTr("Prompts")
         }
+        Flow{
         QfButton {
           text: qsTr("Generate random")
           onClicked: {
@@ -171,6 +175,7 @@ Item {
             textAreaPrompt.text = settings.last_prompt
             textAreaPrompt.cursorPosition = textAreaPrompt.text.length
           }
+        }
         }
       }
     }
