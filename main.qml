@@ -138,15 +138,24 @@ Item {
         }
         QfButton {
           text: qsTr("@me")
-          onClicked: textAreaPrompt.text += " @me"
+          onClicked: {
+            textAreaPrompt.text += " @me"
+            textAreaPrompt.cursorPosition = textAreaPrompt.text.length
+            }
         }
         QfButton {
           text: qsTr("@mapcenter")
-          onClicked: textAreaPrompt.text += " @mapcenter"
+          onClicked: {
+            textAreaPrompt.text += " @mapcenter"
+            textAreaPrompt.cursorPosition = textAreaPrompt.text.length
+        }
         }
         QfButton {
           text: qsTr("@mapextent")
-          onClicked: textAreaPrompt.text += " @mapextent"
+          onClicked: {
+            textAreaPrompt.text += " @mapextent"
+            textAreaPrompt.cursorPosition = textAreaPrompt.text.length
+          }
         }
       }
     }
