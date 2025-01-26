@@ -120,7 +120,7 @@ Dialog {
     height: parent.height
     spacing: 10
 
-    RowLayout {
+    ColumnLayout {
       Layout.fillWidth: true
       Label {
         text: qsTr("Context variables")
@@ -142,7 +142,7 @@ Dialog {
         }
       }
     }
-    RowLayout {
+    ColumnLayout {
       Layout.fillWidth: true
       Label {
         text: qsTr("Prompts")
