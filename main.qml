@@ -87,13 +87,9 @@ Item {
 
     onClicked: {
       const position = positionSource.positionInformation
-      if (positionSource.active && position.latitudeValid && position.longitudeValid)
-      {
-        mainWindow.displayToast(qsTr('Your current position is ' + position.latitude + ', ' +position.longitude))
-      } else {
-      mainWindow.displayToast(qsTr('Your current position is unknown\nContext variables will only work partially'))
-    }
-    promptDialog.open()
+      if (!positionSource.active || !position.latitudeValid || !position.longitudeValid)
+        {mainWindow.displayToast(qsTr('Your current position is unknown\nContext variables will only work partially'))}
+      promptDialog.open()
   }
   onPressAndHold: {
     optionDialog.open()
