@@ -211,7 +211,7 @@ Dialog {
       text: qsTr("API URL")
     }
 
-    QfComboBox {
+    ComboBox {
       id: textFieldApiUrl
       Layout.fillWidth: true
       model: ["https://api.anthropic.com/v1/messages", "https://api.openai.com/v1/chat/completions"]
@@ -224,24 +224,20 @@ Dialog {
 
     Label {
       id: labelApiModel
-      text: qsTr("API model")
+      text: qsTr("API details")
     }
 
-    QfTextField {
+    TextField {
       id: textFieldApiModel
       Layout.fillWidth: true
+      placeholderText: qsTr("Model name")
       text: settings.api_model
     }
 
-    Label {
-      id: labelApiKey
-      Layout.fillWidth: true
-      text: qsTr("API key")
-    }
-
-    QfTextField {
+    TextField {
       id: textFieldApiKey
       Layout.fillWidth: true
+      placeholderText: qsTr("Key token")
       text: settings.api_key
     }
 
