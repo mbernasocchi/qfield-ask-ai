@@ -207,7 +207,9 @@ Item {
                 model: CONFIG.apis.map(api => api.url)
                 currentIndex: CONFIG.apis.findIndex(api => api.url === settings.api_url)
 
-                
+                onActivated: {
+                    comboBoxApiModel.currentIndex = 0;
+                }
             }
             Label {
               id: labelApiModel
