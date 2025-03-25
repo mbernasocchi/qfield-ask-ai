@@ -15,7 +15,7 @@ Item {
   Settings {
     id: settings
     property string api_url: "https://api.anthropic.com/v1/messages" //"https://api.openai.com/v1/chat/completions"
-      property string api_model: "claude-3-5-sonnet-20241022" //"gpt-3.5-turbo"
+      property string api_model: "claude-3-7-sonnet" //"gpt-3.5-turbo"
         property string api_key
         property string last_prompt
       }
@@ -218,7 +218,7 @@ Dialog {
       currentIndex: settings.api_url === "https://api.anthropic.com/v1/messages" ? 0 : 1
 
       onCurrentIndexChanged: {
-        textFieldApiModel.text = currentIndex === 0 ? "claude-3-5-sonnet-20241022" : "gpt-3.5-turbo"
+        textFieldApiModel.text = currentIndex === 0 ? "claude-3-7-sonnet-latest" : "gpt-3.5-turbo"
       }
     }
 
