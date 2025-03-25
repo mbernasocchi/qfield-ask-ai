@@ -8,26 +8,15 @@ import org.qfield
 import org.qgis
 import Theme
 
+import "config.js" as CONFIG
+
 Item {
     id: plugin
 
     Settings {
         id: settings
-        property var supported_api: [
-            {
-              // Anthropic API is the default
-              name: "Anthropic",
-              url: "https://api.anthropic.com/v1/messages",
-              models: ["claude-3-7-sonnet-latest", "claude-3-5-sonnet-latest", "claude-3-5-haiku-latest"]
-            },
-            {
-              name: "OpenAI",
-              url: "https://api.openai.com/v1/chat/completions",
-                models: ["gpt-4o", "gpt-4.5", "gpt-3.5-turbo"]
-            }
-        ]
-        property string api_url: settings.supported_api[0]["url"]
-        property string api_model: settings.supported_api[0]["models"][0] 
+        property string api_url: CONFIG.apis[0]["url"]
+        property string api_model: CONFIG.apis[0]["models"][0] 
         property string api_key
         property string last_prompt
     }
@@ -215,14 +204,15 @@ Item {
             QfComboBox {
                 id: textFieldApiUrl
                 Layout.fillWidth: true
-                model: settings.supported_api.map(api => api.url)
-                currentIndex: settings.supported_api.findIndex(api => api.url === settings.api_url)
+                model: CONFIG.apis.map(api => api.url)
+                currentIndex: CONFIG.apis.findIndex(api => api.url === settings.api_url)
 
                 onCurrentIndexChanged: {
-                    textFieldApiModel.text = settings.supported_api[currentIndex]["models"][0];
+                    textFieldApiModel.text = CONFIG.apis[currentIndex]["models"][0];
+                    console.log(CONFIG.apis.map(api => api.url))
                 }
             }
-            
+
 
             Label {
                 id: labelApiModel
