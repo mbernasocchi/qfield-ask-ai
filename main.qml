@@ -202,27 +202,23 @@ Item {
             }
 
             QfComboBox {
-                id: textFieldApiUrl
+                id: comboBoxApiUrl
                 Layout.fillWidth: true
                 model: CONFIG.apis.map(api => api.url)
                 currentIndex: CONFIG.apis.findIndex(api => api.url === settings.api_url)
 
-                onCurrentIndexChanged: {
-                    textFieldApiModel.text = CONFIG.apis[currentIndex]["models"][0];
-                    console.log(CONFIG.apis.map(api => api.url))
-                }
+                
             }
-
-
             Label {
-                id: labelApiModel
-                text: qsTr("API model")
+              id: labelApiModel
+              text: qsTr("API Model")
             }
 
-            QfTextField {
-                id: textFieldApiModel
-                Layout.fillWidth: true
-                text: settings.api_model
+            QfComboBox {
+              id: comboBoxApiModel
+              Layout.fillWidth: true
+              model: CONFIG.apis[comboBoxApiUrl.currentIndex]["models"]
+              currentIndex: CONFIG.apis[comboBoxApiUrl.currentIndex]["models"].indexOf(settings.api_model)
             }
 
             Label {
@@ -239,8 +235,8 @@ Item {
         }
 
         onAccepted: {
-            settings.api_url = textFieldApiUrl.currentText;
-            settings.api_model = textFieldApiModel.text;
+            settings.api_url = comboBoxApiUrl.currentText;
+            settings.api_model = comboBoxApiModel.currentText;
             settings.api_key = textFieldApiKey.text;
             mainWindow.displayToast(qsTr("Settings stored"));
         }
