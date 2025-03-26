@@ -60,8 +60,8 @@ Item {
                 mapCanvas.mapSettings.setExtent(extent, true);
             }
 
-            locatorBridge.locatorHighlightGeometry.qgsGeometry = geometry;
-            locatorBridge.locatorHighlightGeometry.crs = CoordinateReferenceSystemUtils.fromDescription("EPSG:4326");
+            locatorBridge.geometryHighlighter.qgsGeometry = geometry;
+            locatorBridge.geometryHighlighter.crs = CoordinateReferenceSystemUtils.fromDescription("EPSG:4326");
         }
     }
 
