@@ -201,7 +201,7 @@ Item {
                 text: qsTr("API URL")
             }
 
-            QfComboBox {
+            ComboBox {
                 id: comboBoxApiUrl
                 Layout.fillWidth: true
                 model: CONFIG.apis.map(api => api.url)
@@ -216,7 +216,7 @@ Item {
               text: qsTr("API Model")
             }
 
-            QfComboBox {
+            ComboBox {
               id: comboBoxApiModel
               Layout.fillWidth: true
               model: CONFIG.apis[comboBoxApiUrl.currentIndex]["models"]
@@ -226,10 +226,10 @@ Item {
             Label {
                 id: labelApiKey
                 Layout.fillWidth: true
-                text: qsTr("API key")
+                text: qsTr("API Key")
             }
 
-            QfTextField {
+            TextField {
                 id: textFieldApiKey
                 Layout.fillWidth: true
                 text: settings.api_key
