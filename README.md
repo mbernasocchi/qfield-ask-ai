@@ -4,7 +4,9 @@ This [QField](https://qfield.org) plugin integrates AI searches within QField's 
 The plugin relies on new functionalities within the plugin framework introduced in QField 3.5.
 
 
-https://github.com/user-attachments/assets/bb6df2cc-50aa-4d10-9642-122c51bcd7a6
+
+https://github.com/user-attachments/assets/879dfb46-2fdc-411c-9814-227fd09d6d40
+
 
 
 ## Installation
