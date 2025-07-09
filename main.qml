@@ -52,6 +52,12 @@ Item {
         }
         source: Qt.resolvedUrl('askai.qml')
 
+        Component.onCompleted: {
+            if (askaiLocatorFilter.description !== undefined) {
+                askaiLocatorFilter.description = "Returns a list of LLM generated search results with spatial locations."
+            }
+        }
+
         function triggerResult(result) {
             let geometry = result.userData.geometry;
             if (geometry.type === Qgis.GeometryType.Point) {
