@@ -107,11 +107,30 @@ Item {
         height: mainWindow.height * 0.6
         width: mainWindow.width * 0.8
 
+        property bool isReadyToPrompt: settings.api_url != "" && settings.api_model != "" && settings.api_key != ""
+        
         ColumnLayout {
             width: parent.width
             height: parent.height
             spacing: 10
-
+            
+            RowLayout {
+                Layout.fillWidth: true
+                visible: !promptDialog.isReadyToPrompt
+                Label {
+                    Layout.fillWidth: true
+                    text: qsTr("Please provide the AI URL, model and token first")
+                    wrapMode: Text.WordWrap
+                }
+                QfButton {
+                     text: qsTr("Configure...")
+                     onClicked: {
+                         promptDialog.close()
+                         optionDialog.open()
+                     }
+                }
+            }
+            
             ColumnLayout {
                 Layout.fillWidth: true
                 Label {
@@ -122,18 +141,22 @@ Item {
                     spacing: 5
                     QfButton {
                         text: qsTr("@me")
+                        enabled: promptDialog.isReadyToPrompt
                         onClicked: textAreaPrompt.insert(textAreaPrompt.cursorPosition, "@me")
                     }
                     QfButton {
                         text: qsTr("@mapcenter")
+                        enabled: promptDialog.isReadyToPrompt
                         onClicked: textAreaPrompt.insert(textAreaPrompt.cursorPosition, " @mapcenter")
                     }
                     QfButton {
                         text: qsTr("@mapextent")
+                        enabled: promptDialog.isReadyToPrompt
                         onClicked: textAreaPrompt.insert(textAreaPrompt.cursorPosition, " @mapextent")
                     }
                 }
             }
+
             ColumnLayout {
                 Layout.fillWidth: true
                 Label {
@@ -145,6 +168,7 @@ Item {
 
                     QfButton {
                         text: qsTr("Generate random")
+                        enabled: promptDialog.isReadyToPrompt
                         onClicked: {
                             const poi_types = ["restaurants", "museums", "parks", "historical sites", "shopping centers"];
                             const poi_type = poi_types[Math.floor(Math.random() * poi_types.length)];
@@ -157,6 +181,7 @@ Item {
                     }
                     QfButton {
                         text: qsTr("Reload last")
+                        enabled: promptDialog.isReadyToPrompt
                         onClicked: {
                             textAreaPrompt.text = settings.last_prompt;
                             textAreaPrompt.cursorPosition = textAreaPrompt.text.length;
@@ -169,13 +194,16 @@ Item {
                 id: textAreaPrompt
                 Layout.fillWidth: true
                 Layout.fillHeight: true
+                enabled: promptDialog.isReadyToPrompt
                 text: settings.last_prompt
             }
         }
 
         onAccepted: {
-            settings.last_prompt = textAreaPrompt.text;
-            askaiLocatorFilter.locatorBridge.requestSearch("AAI " + textAreaPrompt.text);
+            if (promptDialog.isReadyToPrompt ) {
+              settings.last_prompt = textAreaPrompt.text;
+              askaiLocatorFilter.locatorBridge.requestSearch("AAI " + textAreaPrompt.text);
+           }
         }
 
         Component.onCompleted: {
