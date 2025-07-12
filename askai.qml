@@ -19,7 +19,14 @@ Item {
       if (request.readyState === XMLHttpRequest.DONE) {
         // Parse response JSON
         let json = JSON.parse(request.response)
-        let features = FeatureUtils.featuresFromJsonString(isAnthropic ? json["content"][0]["text"] : json["choices"][0]["message"]["content"])
+        let text = ""
+        if (isAnthropic) {
+          text = json["content"][0]["text"]
+          text = text.replace('```json','').replace('```','').trim()
+        } else {
+          text = json["choices"][0]["message"]["content"]
+        }
+        let features = FeatureUtils.featuresFromJsonString(text)
         for (let feature of features) {
           let details = {
             "userData": feature,
@@ -94,7 +101,6 @@ Item {
         }
       };
     }
-
     console.log('Request data: ' + JSON.stringify(requestData));
 
     request.open("POST", parameters["api_url"], true);
