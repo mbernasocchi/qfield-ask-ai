@@ -20,7 +20,7 @@ const apis = [
     name: "OpenAI",
     key_url: "https://platform.openai.com/api-keys",
     url: "https://api.openai.com/v1/chat/completions",
-    models: ["gpt-4o", "gpt-4.5", "gpt-3.5-turbo"],
+    models: ["gpt-4.1", "gpt-4o", "gpt-4.5", "gpt-3.5-turbo"],
     headers: {
       "Authorization": "Bearer %%API_KEY%%",
       "content-type": "application/json",
