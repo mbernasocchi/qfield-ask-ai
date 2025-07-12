@@ -232,24 +232,23 @@ Item {
 
             Label {
                 id: labelApiUrl
-                text: qsTr("API URL")
+                text: qsTr("API Provider")
             }
-
             ComboBox {
                 id: comboBoxApiUrl
                 Layout.fillWidth: true
-                model: CONFIG.apis.map(api => api.url)
+                model: CONFIG.apis.map(api => api.name)
                 currentIndex: CONFIG.apis.findIndex(api => api.url === settings.api_url)
 
                 onActivated: {
                     comboBoxApiModel.currentIndex = 0;
                 }
             }
+
             Label {
               id: labelApiModel
               text: qsTr("API Model")
             }
-
             ComboBox {
               id: comboBoxApiModel
               Layout.fillWidth: true
@@ -262,16 +261,23 @@ Item {
                 Layout.fillWidth: true
                 text: qsTr("API Key")
             }
-
             TextField {
                 id: textFieldApiKey
                 Layout.fillWidth: true
                 text: settings.api_key
             }
+            Label {
+                id: labelApiKeyHelp
+                Layout.fillWidth: true
+                text: qsTr("%1Click here to sign up for a key%2").arg("<a href=\"" + (CONFIG.apis[comboBoxApiUrl.currentIndex]["key_url"] ?? "") + "\">").arg("</a>")
+                wrapMode: Text.WordWrap
+                visible: CONFIG.apis[comboBoxApiUrl.currentIndex]["key_url"] !== undefined
+                onLinkActivated: (link) => { Qt.openUrlExternally(link); }
+            }
         }
 
         onAccepted: {
-            settings.api_url = comboBoxApiUrl.currentText;
+            settings.api_url = CONFIG.apis[comboBoxApiUrl.currentIndex]["url"];
             settings.api_model = comboBoxApiModel.currentText;
             settings.api_key = textFieldApiKey.text;
             mainWindow.displayToast(qsTr("Settings stored"));
