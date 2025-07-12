@@ -26,13 +26,14 @@ const apis = [
       "content-type": "application/json",
     },
   },
-  {
-    name: "Infomaniak",
-    url: "https://api.infomaniak.com/1/ai/102849/openai/chat/completions",
-    models: ["llama3", "whisper", "reasoning"],
-    headers: {
-      "Authorization": "Bearer %%API_KEY%%",
-      "content-type": "application/json",
-    },
-  },
+  //{
+  //  name: "Infomaniak",
+  //  key_url: "https://www.infomaniak.com/en/hosting/ai-tools",
+  //  url: "https://api.infomaniak.com/1/ai/102849/openai/chat/completions",
+  //  models: ["llama3", "whisper", "reasoning"],
+  //  headers: {
+  //    "Authorization": "Bearer %%API_KEY%%",
+  //    "content-type": "application/json",
+  //  },
+  //},
 ];

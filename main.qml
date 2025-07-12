@@ -15,6 +15,8 @@ Item {
 
     Settings {
         id: settings
+        category: "ask-ai"
+
         property string api_url: CONFIG.apis[0]["url"]
         property string api_model: CONFIG.apis[0]["models"][0] 
         property string api_key
