@@ -26,6 +26,20 @@ Item {
     console.log('Fetching results.... from ' + parameters["api_url"]);
 
     const isAnthropic = parameters["api_url"].startsWith("https://api.anthropic.com/");
+    const apiKey = (parameters["api_key"] || "").trim();
+    const selectedModel = (parameters["api_model"] || "").trim();
+
+    if (selectedModel === "") {
+      emitInfoResult('Missing model', 'Please configure a model in plugin settings.');
+      fetchResultsEnded();
+      return;
+    }
+
+    if (apiKey === "") {
+      emitInfoResult('Missing API key', 'Please configure a non-empty API key in plugin settings.');
+      fetchResultsEnded();
+      return;
+    }
 
     let request = new XMLHttpRequest();
     request.onreadystatechange = function() {
@@ -55,6 +69,11 @@ Item {
       }
     }
     
+    request.onerror = function() {
+      console.log('Network error while requesting AI response.');
+      emitInfoResult('Network error', 'Could not reach AI endpoint. Check network connectivity and API URL.');
+      fetchResultsEnded();
+    }
     
     const position = parameters["position_information"]
 
@@ -101,13 +120,13 @@ Item {
 
     if (isAnthropic) {
       requestData = {
-        model: parameters["api_model"],
+        model: selectedModel,
         max_tokens: 4096,
         messages: messages,
       };
     } else {
       requestData = {
-        model: parameters["api_model"],
+        model: selectedModel,
         messages: messages,
         response_format: {
           type: "json_object",
@@ -118,10 +137,10 @@ Item {
 
     request.open("POST", parameters["api_url"], true);
     if (isAnthropic) {
-      request.setRequestHeader('x-api-key', parameters["api_key"]);
+      request.setRequestHeader('x-api-key', apiKey);
       request.setRequestHeader('anthropic-version', '2023-06-01');
     } else {
-      request.setRequestHeader("Authorization", `Bearer ${parameters["api_key"]}`);
+      request.setRequestHeader("Authorization", `Bearer ${apiKey}`);
     }
     request.setRequestHeader('content-type', 'application/json');
     request.send(JSON.stringify(requestData));
