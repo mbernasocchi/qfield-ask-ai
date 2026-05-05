@@ -4,6 +4,8 @@ const apis = [
     name: "Anthropic",
     key_url: "https://console.anthropic.com/login?selectAccount=true&returnTo=%2Fsettings%2Fadmin-keys%3F",
     url: "https://api.anthropic.com/v1/messages",
+
+    // See models here: https://platform.claude.com/docs/en/about-claude/models/overview
     models: [
       "claude-opus-4-7",
       "claude-sonnet-4-6",
