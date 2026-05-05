@@ -6,9 +6,22 @@ Item {
   signal prepareResult(var details)
   signal fetchResultsEnded()
 
+  function emitInfoResult(display, description) {
+    let details = {
+      "userData": null,
+      "displayString": display,
+      "description": description,
+      "score": 1,
+      "groupScore": 1,
+      "actions": []
+    }
+    prepareResult(details)
+  }
+
   function fetchResults(string, context, parameters) {
     if (parameters["api_url"] === undefined || string === "") {
       fetchResultsEnded();
+      return;
     }
     console.log('Fetching results.... from ' + parameters["api_url"]);
 

@@ -5,10 +5,9 @@ const apis = [
     key_url: "https://console.anthropic.com/login?selectAccount=true&returnTo=%2Fsettings%2Fadmin-keys%3F",
     url: "https://api.anthropic.com/v1/messages",
     models: [
-      "claude-sonnet-4-20250514",
-      "claude-3-7-sonnet-latest",
-      "claude-3-5-sonnet-latest",
-      "claude-3-5-haiku-latest",
+      "claude-opus-4-7",
+      "claude-sonnet-4-6",
+      "claude-haiku-4-5-20251001",
     ],
     headers: {
       "x-api-key": "%%API_KEY%%",
