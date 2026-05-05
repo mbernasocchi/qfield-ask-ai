@@ -64,7 +64,7 @@ Item {
             let geometry = result.userData.geometry;
             if (geometry.type === Qgis.GeometryType.Point) {
                 const centroid = GeometryUtils.reprojectPoint(GeometryUtils.centroid(geometry), CoordinateReferenceSystemUtils.fromDescription("EPSG:4326"), mapCanvas.mapSettings.destinationCrs);
-                mapCanvas.mapSettings.setCenter(centroid, true);
+                mapCanvas.jumpTo(centroid, -1, -1, true)
             } else {
                 const extent = GeometryUtils.reprojectRectangle(GeometryUtils.boundingBox(geometry), CoordinateReferenceSystemUtils.fromDescription("EPSG:4326"), mapCanvas.mapSettings.destinationCrs);
                 mapCanvas.mapSettings.setExtent(extent, true);
